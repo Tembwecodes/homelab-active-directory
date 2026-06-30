@@ -35,6 +35,8 @@ The giveaway at the login screen is the wording. A wrong password gives a generi
 
 That message is the strongest signal that this is a lockout and not a forgotten password, because Windows only shows it once the lockout threshold has been crossed.
 
+![Windows login screen showing the account locked out message](lockout-login-message.png)
+
 ---
 
 ## Step 2: Confirm the lockout from the domain controller
@@ -52,6 +54,8 @@ Name           LockedOut
 ----           ---------
 Emma Wilson    True
 ```
+
+![PowerShell output showing LockedOut equals True for Emma Wilson](lockout-confirmed-powershell.png)
 
 `LockedOut : True` confirms it. This is a genuine lockout, not a forgotten password. Resetting her password would not have fixed it, and would have created a second problem by changing a password she did not need changed.
 
@@ -103,6 +107,8 @@ The graphical route through Active Directory Users and Computers is the one most
 5. The tick box reads **"Unlock account. This account is currently locked out on this Active Directory Domain Controller."** The presence of that line is itself confirmation that the account is locked, a healthy account does not show it as actionable.
 6. Tick **Unlock account**, then click **Apply** and **OK**.
 
+![ADUC Account tab for Emma Wilson with the Unlock account box ticked](lockout-aduc-unlock.png)
+
 That immediately clears the lockout. The account is not changed in any other way, the password stays exactly as it was, which is the whole point of unlocking rather than resetting.
 
 ---
@@ -136,6 +142,8 @@ False
 ```
 
 `LockedOut : False` confirms the account is now healthy. I would then confirm with Emma that she can sign in normally before closing the ticket.
+
+![PowerShell output showing LockedOut equals False after the unlock](lockout-resolved-powershell.png)
 
 ---
 
